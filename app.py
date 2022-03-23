@@ -1,5 +1,5 @@
 import json
-from flask import Flask
+from flask import Flask, request
 from typing import *
 import sqlite3
 
@@ -14,11 +14,11 @@ def insert(table: str, values: Dict[str, Union[str, int]]):
     cur.execute("""INSERT INTO ? VALUES ?""", table, values)
     return
 
-def select_table(table: str) -> str:
+def select_table(table: str, attributes: str) -> str:
     db_conn = sqlite3.connect("food_delivery.db")
     cur = db_conn.cursor()
     out = []
-    for row in cur.execute(f"SELECT * FROM {table}"):
+    for row in cur.execute(f"SELECT {attributes} FROM {table}"):
         out.append(row)
     return json.dumps(out)
 
@@ -29,4 +29,7 @@ def hello_world():
 
 @app.route("/tables/<tablename>")
 def table(tablename: str):
-    return select_table(tablename)
+    attributes = request.args.get("attributes")
+    if attributes is None:
+        attributes = "*"
+    return select_table(tablename, attributes)
