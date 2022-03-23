@@ -27,7 +27,10 @@ def select_table(table: str, attributes: str) -> str:
 def hello_world():
     return "</p>UBER EATS</p>"
 
-@app.route("/tables/<tablename>")
+# Example url: http://127.0.0.1:5000/tables/Driver?attributes=first_name,last_name
+# If you want all the attributes in a table, don't include the attributes query parameter:
+# http://127.0.0.1:5000/tables/Driver
+@app.route("/tables/<tablename>", method=['GET'])
 def table(tablename: str):
     attributes = request.args.get("attributes")
     if attributes is None:
