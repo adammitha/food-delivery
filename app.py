@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request
+from flask import Flask, render_template, request
 from typing import *
 import sqlite3
 
@@ -25,14 +25,35 @@ def select_table(table: str, attributes: str) -> str:
 
 @app.route("/")
 def hello_world():
-    return "</p>UBER EATS</p>"
+    return render_template('index.html')
+
+@app.route('/customers')
+def customer():
+    return render_template('customer.html')
+
+@app.route('/address')
+def address():
+    return render_template('address.html')
+
+@app.route('/drivers')
+def drivers():
+    return render_template('drivers.html')
+
+@app.route('/restaurants')
+def restaurants():
+    return render_template('restaurants.html')
 
 # Example url: http://127.0.0.1:5000/tables/Driver?attributes=first_name,last_name
 # If you want all the attributes in a table, don't include the attributes query parameter:
 # http://127.0.0.1:5000/tables/Driver
-@app.route("/tables/<tablename>", method=['GET'])
+
+@app.route("/tables/<tablename>", methods=['GET'])
 def table(tablename: str):
     attributes = request.args.get("attributes")
     if attributes is None:
         attributes = "*"
     return select_table(tablename, attributes)
+
+
+if __name__ == '__name__':
+    app.run(port=5000,debug=True)
