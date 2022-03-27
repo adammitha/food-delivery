@@ -1,50 +1,37 @@
-<!DOCTYPE html>
-<html lang="en-us">
+{% extends 'base.html' %}
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block content %}
+<title>Customer</title>
 
-	<title>Customer</title>
+{% for user in tableName %}
+        <a href="#">
+            <h2>{{ user['first_name'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ user['last_name'] }}</span>
+        <hr>
+    {% endfor %}
+<!-- <div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    {% for user in tableData %}
+    <tbody>
+      <th scope="row"> </th>
+      <td>{{user}}</td> 
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div> -->
 
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-    
-
-	<!--Additional elements for browsers and robots go here goes here-->
-
-</head>
-
-<body>
-    <Button onclick="myFunction()"> Insert </Button>
+<div>
+  <Button onclick="myFunction()"> Insert </Button>
     <Button onclick="myFunction()"> Delete </Button>
     <Button onclick="myFunction()"> Update </Button>
     <Button onclick="myFunction()"> Projection </Button>
@@ -60,7 +47,13 @@
 
           
         }
-      </script>
-</body>
 
-</html>
+        function log_console() {
+            console.log
+                (tableData)
+        }
+
+        
+      </script>
+</div>
+{% endblock %}

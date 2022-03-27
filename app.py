@@ -22,14 +22,18 @@ def select_table(table: str, attributes: str) -> str:
         out.append(row)
     return json.dumps(out)
 
-
 @app.route("/")
 def hello_world():
     return render_template('index.html')
 
 @app.route('/customers')
 def customer():
-    return render_template('customer.html')
+    db_conn = sqlite3.connect("food_delivery.db");
+    cur = db_conn.cursor();
+    tableData =  table("Customer");
+    db_conn.close()  
+    print(tableData)
+    return render_template('customer.html', tableData = tableData.toJSON());
 
 @app.route('/address')
 def address():
@@ -42,6 +46,10 @@ def drivers():
 @app.route('/restaurants')
 def restaurants():
     return render_template('restaurants.html')
+
+@app.route('/vehicles')
+def vehicles():
+    return render_template('vehicles.html')
 
 # Example url: http://127.0.0.1:5000/tables/Driver?attributes=first_name,last_name
 # If you want all the attributes in a table, don't include the attributes query parameter:

@@ -108,7 +108,7 @@ INSERT INTO Restaurant(restaurant_id, restaurant_name, cuisine, address_id, busi
 
 CREATE TABLE Customer (
 	customer_id integer,
-	addressID int,
+	addressID integer,
 	first_name char(50),
     last_name char(50),
 	PRIMARY KEY (customer_id),
