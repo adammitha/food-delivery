@@ -28,6 +28,18 @@ def select_table(table: str, attributes: str) -> str:
         out.append(row)
     return out;
 
+def delete_table_row(table: str, condition_map: Dict[str, Union[str, int]]):
+    """
+    Deletes row(s) from table that matches the condition_map
+    """
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    conditions = " AND ".join([f"{key}=?" for key in condition_map.keys()])
+    query = f"DELETE FROM {table} WHERE {conditions}"
+    cur.execute(query, tuple(condition_map.values()))
+    db_conn.commit()
+    return 
+
 def raw_select_query(query: str):
     """
     Execute raw select sql query against db
@@ -113,6 +125,16 @@ def raw_query():
 @app.route("/tables/<tablename>", methods=['PUT'])
 def insert(tablename: str):
     return json.dumps({"row_id": insert_table(tablename, request.json)})
+
+# Example URL: http://127.0.0.1:5000/tables/Driver
+# Must use DELETE method
+# Content-type header must be application/json
+# Conditions for row(s) to delete must be passed in request body as json object {attribute: value}
+# E.g. '{"first_name": "Ben", "last_name": "Kenobi"}'
+@app.route("/tables/<tablename>", methods=['DELETE'])
+def delete(tablename: str):
+    delete_table_row(tablename, request.json)
+    return json.dumps({"result": "Success"})
 
 if __name__ == '__name__':
     app.run(port=5000,debug=True)
