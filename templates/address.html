@@ -2,4 +2,30 @@
 
 {% block content %}
     <h1>Address page</h1>
+   
+
+    <div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Address ID</th>
+            <th scope="col">Unit Number</th>
+            <th scope="col">Street Number</th>
+            <th scope="col">Street Name</th>
+            <th scope="col">Postal Code</th>
+            <th scope="col">Neighbourhood</th>
+        </tr>
+        </thead>
+        {% for user in tableData %}
+        <tbody>
+        <td>{{ user[0] }} </td>
+        <td>{{ user[1] }} </td>
+        <td>{{ user[2] }} </td>
+        <td>{{ user[3] }} </td>
+        <td>{{ user[4] }} </td>
+        <td>{{ user[5] }} </td>
+        </tbody>
+        {% endfor %}
+    </table>
+    </div>
 {% endblock %}

@@ -2,33 +2,27 @@
 
 {% block content %}
 <title>Customer</title>
-
-{% for user in tableName %}
-        <a href="#">
-            <h2>{{ user['first_name'] }}</h2>
-        </a>
-        <span class="badge badge-primary">{{ user['last_name'] }}</span>
-        <hr>
-    {% endfor %}
-<!-- <div>
+<div>
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Customer ID</th>
+        <th scope="col">Address ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
       </tr>
     </thead>
     {% for user in tableData %}
     <tbody>
-      <th scope="row"> </th>
-      <td>{{user}}</td> 
-      </tr>
+      <td>{{ user[0] }} </td>
+      <td>{{ user[1] }} </td>
+      <td>{{ user[2] }} </td>
+      <td>{{ user[3] }} </td>
+      <td><Button onclick="myFunction()"> Delete </Button><td>
     </tbody>
     {% endfor %}
   </table>
-</div> -->
+</div>
 
 <div>
   <Button onclick="myFunction()"> Insert </Button>
