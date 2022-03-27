@@ -18,36 +18,30 @@
       <td>{{ user[1] }} </td>
       <td>{{ user[2] }} </td>
       <td>{{ user[3] }} </td>
-      <td><Button onclick="myFunction()"> Delete </Button><td>
+      <td><Button onclick="deleteFunction()"> Delete </Button><td>
     </tbody>
     {% endfor %}
   </table>
 </div>
 
+# Example URL: http://127.0.0.1:5000/tables/Driver
+# Must use DELETE method
+# Content-type header must be application/json
+# Conditions for row(s) to delete must be passed in request body as json object {attribute: value}
+# E.g. '{"first_name": "Ben", "last_name": "Kenobi"}'
 <div>
   <Button onclick="myFunction()"> Insert </Button>
     <Button onclick="myFunction()"> Delete </Button>
     <Button onclick="myFunction()"> Update </Button>
     <Button onclick="myFunction()"> Projection </Button>
     <script>
-        function myFunction() {
-           URL =  "http://127.0.0.1:5000/tables/Customer"
+        function deleteFunction(user) {
+           URL =  "http://127.0.0.1:5000/tables/Customer" 
 
-           data = requests.get(url = URL);
+           bodyParam = {"first_name": "John", "last_name": "Cena"}
 
-           data.json();
-
-           console.log(data);
-
-          
-        }
-
-        function log_console() {
-            console.log
-                (tableData)
-        }
-
-        
+           data = requests.delete(url = URL, params = bodyParam );   
+        }  
       </script>
 </div>
 {% endblock %}

@@ -57,6 +57,10 @@ def raw_select_query(query: str):
 def hello_world():
     return render_template('index.html')
 
+@app.route('/addcustomer')
+def customeradd():
+    return render_template('addcustomer.html')
+
 @app.route('/customers')
 def customer():
     db_conn = sqlite3.connect("food_delivery.db");
