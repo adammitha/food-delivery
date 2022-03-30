@@ -123,23 +123,22 @@ INSERT INTO Restaurant(restaurant_id, restaurant_name, cuisine, address_id, busi
 
 CREATE TABLE Customer (
 	customer_id integer,
-	addressID integer,
+	customer_address char(200),
 	first_name char(50),
     last_name char(50),
 	PRIMARY KEY (customer_id),
-	FOREIGN KEY (addressID) REFERENCES Address
 );
 
-INSERT INTO Customer(customer_id, addressID, first_name, last_name) 
-    VALUES (11, 1234, "John", "Cena");
-INSERT INTO Customer(customer_id, addressID, first_name, last_name) 
-    VALUES (22, 1234, "Rey", "Mysterio");
-INSERT INTO Customer(customer_id, addressID, first_name, last_name) 
-    VALUES (33, 5432, "Brock", "Lesnar");
-INSERT INTO Customer(customer_id, addressID, first_name, last_name) 
-    VALUES (44, 5432, "Dwayne", "Johnson");
-INSERT INTO Customer(customer_id, addressID, first_name, last_name) 
-    VALUES (55, 5432, "Dave", "Bautista");
+INSERT INTO Customer(customer_id, customer_address, first_name, last_name) 
+    VALUES (11, '1234 Trick Street', "John", "Cena");
+INSERT INTO Customer(customer_id, customer_address, first_name, last_name) 
+    VALUES (22, "321 Cool Ave", "Rey", "Mysterio");
+INSERT INTO Customer(customer_id, customer_address, first_name, last_name) 
+    VALUES (33, "5432 Water Road", "Brock", "Lesnar");
+INSERT INTO Customer(customer_id, customer_address, first_name, last_name) 
+    VALUES (44, "292 15th Street", "Dwayne", "Johnson");
+INSERT INTO Customer(customer_id, customer_address, first_name, last_name) 
+    VALUES (55, "123 Sunny Drive", "Dave", "Bautista");
 
 
 CREATE TABLE DeliveryReceivesMakes (

@@ -196,31 +196,40 @@ def create():
         return render_template('customer.html', tableData= tableData)
 
 
-def get_post(post_id):
-    conn = get_db_connection()
-    post = conn.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
-    conn.close()
-    if post is None:
-        abort(404)
-    return post
-
-
 def get_customer(customer_id):
     conn = sqlite3.connect('food_delivery.db')
-    post = conn.execute('SELECT * FROM customer WHERE customer_id = ?',
+    cust = conn.execute('SELECT * FROM customer WHERE customer_id = ?',
                         (customer_id,)).fetchone()
-    print(post)
+    print(cust)
     conn.close()
-    if post is None:
+    if cust is None:
         abort(404)
-    return post
+    return cust
 
 
 @app.route('/<int:customer_id>')
 def customer_helper(customer_id):
-    post = get_customer(customer_id)
-    return render_template('cust.html', post=post)
+    customer = get_customer(customer_id)
+    return render_template('customerProfile.html', customer=customer)
+
+@app.route('/<int:customer_id>/edit', methods=('GET', 'POST'))
+def edit(customer_id):
+    customer = get_customer(customer_id)
+    if request.method == 'POST':
+        customer_id = request.form['customer_id']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        addressID = request.form['addressID']
+        db_conn = sqlite3.connect("food_delivery.db")
+        db_conn.execute('UPDATE customer SET first_name = ?, last_name = ?, addressID = ?'
+                         ' WHERE customer_id = ?',
+                         (first_name, last_name, addressID, customer_id))
+        db_conn.commit()
+        db_conn.close()
+        tableData =  table("Customer");
+        return render_template('customer.html', tableData= tableData, customer = customer)
+    else:
+        return render_template('editcustomer.html', customer = customer)
 
 
 
