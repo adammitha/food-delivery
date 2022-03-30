@@ -1,0 +1,25 @@
+{% extends 'editbase.html' %}
+
+{% block content %}
+ <form method = 'POST'>
+   <div class="form-group">
+    <div class="mb-3">
+        <label for="customer_id" class="form-label">User ID</label>
+        <input type="text" name="customer_id" class="form-control" value = "{{ request.form['customer_id'] }}" id="customer_id">
+    </div>
+    <div class="mb-3">
+      <label for="first_name" class="form-label">First Name</label>
+      <input type="text" name="first_name" class="form-control"  value = "{{ request.form['first_name'] }}" id="first_name">
+    </div>
+    <div class="mb-3">
+      <label for="last_name" class="form-label">Last Name</label>
+      <input type="text" name="last_name" class="form-control"  value = "{{ request.form['last_name'] }}" id="last_name">
+    </div>
+    <div class="mb-3">
+        <label for="addressID" class="form-label">Address</label>
+        <input type="text" name="addressID" class="form-control"  value = "{{ request.form['address'] }}" id="addressID">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+{% endblock %}

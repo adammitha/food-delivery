@@ -29,6 +29,12 @@
   </table>
 </div>
 
+<!-- leave this here - faraz -->
+<!-- <td><a href= "{{url_for('get_customer', customer_id = customer['customer_id']) }}">
+  <span class="badge badge-primary"> {{ user[0] }} </span>
+</a>
+</td> -->
+
 
 <div>
   <Button onclick="myFunction()"> Insert </Button>
@@ -40,11 +46,10 @@
     <Button onclick="myFunction()"> Divide</Button>
 
 
-<td><form action="{{ url_for('select_customer') }}" method=post>
-  <input type=hidden value="Cena"name=selector />
-  <input type=text value=""name=selector />
-<input type=submit  value="Select" />
 
+
+<input type="text" placeholder="Select" id="myInput">
+    <button type="button" onclick="getInputValue();">Select</button>
 </form>
 
 
@@ -53,8 +58,13 @@
     <script>
       
        function getInputValue(){
-         
             // Selecting the input element and get its value 
+
+            fetch(request)
+              .then(response => response.blob())
+              .then(blob => {
+                image.src = URL.createObjectURL(blob);
+              });
           var inputVal = document.getElementById("myInput").value;
 
           console.log(inputVal);

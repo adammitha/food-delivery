@@ -70,6 +70,14 @@ def update_table(table: str, condition_map: Dict[str, Union[str, int]], value_ma
     db_conn.commit()
     return
 
+def get_customer(customer_id):
+    db_conn = sqlite3.connect("food_delivery.db")
+    db_conn.row_factory = sqlite3.Row
+    customer = db_conn.execute('SELECT * FROM customer WHERE customer_id = ?',
+                                (customer_id,)).fetchone()
+    db_conn.close()
+    return customer
+
 
 @app.route("/")
 def hello_world():
@@ -124,6 +132,15 @@ def customeradd():
 @app.route('/addrestaurant')
 def restaurantadd():
     return render_template('addrestaurant.html')
+
+@app.route('/editcustomer')
+def customeredit():
+    return render_template('editcustomer.html')
+
+@app.route('/<int:customer_id>')
+def customer_view(customer_id):
+    customer = get_customer(customer_id)
+    return render_template('cust.html', customer = customer)
 
 
 
@@ -188,6 +205,23 @@ def create():
         address = request.form['addressID']
         db_conn = sqlite3.connect("food_delivery.db")
         db_conn.execute('INSERT INTO customer (customer_id, first_name, last_name, addressID) VALUES (?, ?, ?, ?)',
+                        (customer_id, first_name, last_name, address))
+        db_conn.commit()
+        tableData =  table("Customer");
+        return render_template('customer.html', tableData= tableData)
+    else:
+        return render_template('customer.html', tableData= tableData)
+    
+@app.route('/editcustomer', methods=['GET', 'POST'])
+def edit(id):
+    if request.method == 'POST':
+        customer_id = request.form['customer_id']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        address = request.form['addressID']
+        db_conn = sqlite3.connect("food_delivery.db")
+        db_conn.execute('UPDATE customer SET first_name = ?,  last_name = ?,  addressID = ? '
+                        ' WHERE customer_id = ?',
                         (customer_id, first_name, last_name, address))
         db_conn.commit()
         tableData =  table("Customer");
