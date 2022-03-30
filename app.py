@@ -59,9 +59,6 @@ def raw_select_query(query: str):
 def hello_world():
     return render_template('index.html')
 
-@app.route('/addcustomer')
-def customeradd():
-    return render_template('addcustomer.html')
 
 @app.route('/customers')
 def customer():
@@ -104,6 +101,16 @@ def vehicles():
     db_conn.close() 
     return render_template('vehicles.html', tableData = tableData);
 
+@app.route('/addcustomer')
+def customeradd():
+    return render_template('addcustomer.html')
+
+@app.route('/addrestaurant')
+def restaurantadd():
+    return render_template('addrestaurant.html')
+
+
+
 # Example url: http://127.0.0.1:5000/tables/Driver?attributes=first_name,last_name
 # If you want all the attributes in a table, don't include the attributes query parameter:
 # http://127.0.0.1:5000/tables/Driver
@@ -128,7 +135,7 @@ def raw_query():
 # Content-type header must be application/json
 # Values to insert must be passed in request body as json object
 # E.g '{"driver_id": 7, "first_name": "Bob", "last_name": "Builder", "drivers_license_number": 95444792}'
-@app.route("/tables/<tablename>", methods=['PUT'])
+@app.route("/addcustomer", methods=['PUT'])
 def insert(tablename: str):
     return json.dumps({"row_id": insert_table(tablename, request.json)})
 
@@ -146,7 +153,6 @@ if __name__ == '__name__':
     app.run(port=5000,debug=True)
 
 
-
 #app.py
 @app.route('/tables/customer', methods=['POST'])
 def delete_customer():
@@ -156,3 +162,35 @@ def delete_customer():
     db_conn.commit()
     tableData =  table("Customer");
     return render_template('customer.html', tableData = tableData)
+
+@app.route('/addcustomer', methods=['GET', 'POST'])
+def create():
+    if request.method == 'POST':
+        customer_id = request.form['customer_id']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        address = request.form['addressID']
+        db_conn = sqlite3.connect("food_delivery.db")
+        db_conn.execute('INSERT INTO customer (customer_id, first_name, last_name, addressID) VALUES (?, ?, ?, ?)',
+                        (customer_id, first_name, last_name, address))
+        db_conn.commit()
+        tableData =  table("Customer");
+        return render_template('customer.html', tableData= tableData)
+    else:
+        return render_template('customer.html', tableData= tableData)
+
+
+@app.route('/tables/customer', methods = ['POST'])
+def select_customer():
+    """
+    Execute raw select sql query against db
+    Assumes that query is a select query. Caller must check this invariant
+    """
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    cur.execute('SELECT * FROM customer WHERE firstname = ?', [request.form['selector']])
+    db_conn.commit()
+    tableData =  table("Customer")
+    return render_template('customerSelect.html', tableData = tableData)
+
+    

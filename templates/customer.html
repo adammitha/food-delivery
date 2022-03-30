@@ -21,23 +21,51 @@
       <td><form action="{{ url_for('delete_customer') }}" method=post>
         <input type=hidden value="{{ user[3] }}"name=last__name_to_delete />
   <input type=submit  value="Delete" />
-    </form><td>
+  
+    </form>
+    <td>
     </tbody>
     {% endfor %}
   </table>
 </div>
 
-# Example URL: http://127.0.0.1:5000/tables/Driver
-# Must use DELETE method
-# Content-type header must be application/json
-# Conditions for row(s) to delete must be passed in request body as json object {attribute: value}
-# E.g. '{"first_name": "Ben", "last_name": "Kenobi"}'
+
 <div>
   <Button onclick="myFunction()"> Insert </Button>
     <Button onclick="myFunction()"> Delete </Button>
     <Button onclick="myFunction()"> Update </Button>
     <Button onclick="myFunction()"> Projection </Button>
+    <Button onclick="myFunction()"> Select </Button>
+    <Button onclick="myFunction()"> Join</Button>
+    <Button onclick="myFunction()"> Divide</Button>
+
+
+<td><form action="{{ url_for('select_customer') }}" method=post>
+  <input type=hidden value="Cena"name=selector />
+  <input type=text value=""name=selector />
+<input type=submit  value="Select" />
+
+</form>
+
+
+
+    
     <script>
+      
+       function getInputValue(){
+         
+            // Selecting the input element and get its value 
+          var inputVal = document.getElementById("myInput").value;
+
+          console.log(inputVal);
+
+          URL =  "http://127.0.0.1:5000/tables/Customer" 
+
+          bodyParam = {"first_name": inputVal}
+
+          data = requests.delete(url = URL, params = bodyParam);   
+        }
+
         function deleteFunction(user) {
            URL =  "http://127.0.0.1:5000/tables/Customer" 
 
