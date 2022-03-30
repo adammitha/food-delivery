@@ -14,7 +14,9 @@
     </thead>
     {% for user in tableData %}
     <tbody>
-      <td>{{ user[0] }} </td>
+      <td><a href= "{{url_for('customer_helper', customer_id = user[0]) }}">
+        <span class="badge badge-primary"> {{ user[0] }} </span>
+      </a></td>
       <td>{{ user[1] }} </td>
       <td>{{ user[2] }} </td>
       <td>{{ user[3] }} </td>
@@ -28,13 +30,6 @@
     {% endfor %}
   </table>
 </div>
-
-<!-- leave this here - faraz -->
-<!-- <td><a href= "{{url_for('get_customer', customer_id = customer['customer_id']) }}">
-  <span class="badge badge-primary"> {{ user[0] }} </span>
-</a>
-</td> -->
-
 
 <div>
   <Button onclick="myFunction()"> Insert </Button>
@@ -57,24 +52,6 @@
     
     <script>
       
-       function getInputValue(){
-            // Selecting the input element and get its value 
-
-            fetch(request)
-              .then(response => response.blob())
-              .then(blob => {
-                image.src = URL.createObjectURL(blob);
-              });
-          var inputVal = document.getElementById("myInput").value;
-
-          console.log(inputVal);
-
-          URL =  "http://127.0.0.1:5000/tables/Customer" 
-
-          bodyParam = {"first_name": inputVal}
-
-          data = requests.delete(url = URL, params = bodyParam);   
-        }
 
         function deleteFunction(user) {
            URL =  "http://127.0.0.1:5000/tables/Customer" 
