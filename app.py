@@ -26,7 +26,7 @@ def select_table(table: str, attributes: str) -> str:
     out = []
     for row in cur.execute(f"SELECT {attributes} FROM {table}"):
         out.append(row)
-    return json.dumps(out)
+    return out;
 
 def delete_table_row(table: str, condition_map: Dict[str, Union[str, int]]):
     """
@@ -57,21 +57,50 @@ def raw_select_query(query: str):
 def hello_world():
     return render_template('index.html')
 
+@app.route('/addcustomer')
+def customeradd():
+    return render_template('addcustomer.html')
+
 @app.route('/customers')
 def customer():
-    return render_template('customer.html')
+    db_conn = sqlite3.connect("food_delivery.db");
+    cur = db_conn.cursor();
+    tableData =  table("Customer");
+    db_conn.close()  
+    print(tableData)
+    return render_template('customer.html', tableData = tableData);
 
 @app.route('/address')
 def address():
-    return render_template('address.html')
+    db_conn = sqlite3.connect("food_delivery.db");
+    cur = db_conn.cursor();
+    tableData =  table("Address");
+    db_conn.close() 
+    return render_template('address.html', tableData = tableData)
 
 @app.route('/drivers')
 def drivers():
-    return render_template('drivers.html')
+    db_conn = sqlite3.connect("food_delivery.db");
+    cur = db_conn.cursor();
+    tableData =  table("Driver");
+    db_conn.close() 
+    return render_template('drivers.html', tableData = tableData)
 
 @app.route('/restaurants')
 def restaurants():
-    return render_template('restaurants.html')
+    db_conn = sqlite3.connect("food_delivery.db");
+    cur = db_conn.cursor();
+    tableData =  table("Restaurant");
+    db_conn.close() 
+    return render_template('restaurants.html', tableData = tableData)
+
+@app.route('/vehicles')
+def vehicles():
+    db_conn = sqlite3.connect("food_delivery.db");
+    cur = db_conn.cursor();
+    tableData =  table("VehicleDrives");
+    db_conn.close() 
+    return render_template('vehicles.html', tableData = tableData);
 
 # Example url: http://127.0.0.1:5000/tables/Driver?attributes=first_name,last_name
 # If you want all the attributes in a table, don't include the attributes query parameter:

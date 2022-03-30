@@ -1,66 +1,47 @@
-<!DOCTYPE html>
-<html lang="en-us">
+{% extends 'base.html' %}
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block content %}
+<title>Customer</title>
+<div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Customer ID</th>
+        <th scope="col">Address ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+      </tr>
+    </thead>
+    {% for user in tableData %}
+    <tbody>
+      <td>{{ user[0] }} </td>
+      <td>{{ user[1] }} </td>
+      <td>{{ user[2] }} </td>
+      <td>{{ user[3] }} </td>
+      <td><Button onclick="deleteFunction()"> Delete </Button><td>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
 
-	<title>Customer</title>
-
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-    
-
-	<!--Additional elements for browsers and robots go here goes here-->
-
-</head>
-
-<body>
-    <Button onclick="myFunction()"> Insert </Button>
+# Example URL: http://127.0.0.1:5000/tables/Driver
+# Must use DELETE method
+# Content-type header must be application/json
+# Conditions for row(s) to delete must be passed in request body as json object {attribute: value}
+# E.g. '{"first_name": "Ben", "last_name": "Kenobi"}'
+<div>
+  <Button onclick="myFunction()"> Insert </Button>
     <Button onclick="myFunction()"> Delete </Button>
     <Button onclick="myFunction()"> Update </Button>
     <Button onclick="myFunction()"> Projection </Button>
     <script>
-        function myFunction() {
-           URL =  "http://127.0.0.1:5000/tables/Customer"
+        function deleteFunction(user) {
+           URL =  "http://127.0.0.1:5000/tables/Customer" 
 
-           data = requests.get(url = URL);
+           bodyParam = {"first_name": "John", "last_name": "Cena"}
 
-           data.json();
-
-           console.log(data);
-
-          
-        }
+           data = requests.delete(url = URL, params = bodyParam );   
+        }  
       </script>
-</body>
-
-</html>
+</div>
+{% endblock %}

@@ -1,12 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Restaurant page</h1>
-</body>
-</html>
+    restaurant_id integer,
+	restaurant_name char(20),
+	cuisine char(20),
+	address_id integer,
+	business_license_number integer,
+    <div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Restaurant ID</th>
+            <th scope="col">Restaurant Name</th>
+            <th scope="col">Cuisine</th>
+            <th scope="col">Address ID</th>
+            <th scope="col">Business License Number</th>
+        </tr>
+        </thead>
+        {% for user in tableData %}
+        <tbody>
+        <td>{{ user[0] }} </td>
+        <td>{{ user[1] }} </td>
+        <td>{{ user[2] }} </td>
+        <td>{{ user[3] }} </td>
+        <td>{{ user[4] }} </td>
+        </tbody>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}

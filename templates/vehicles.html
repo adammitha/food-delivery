@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Vehicle page</h1>
+    license_plate char(20),
+    vehicle_color char(20),
+    vehicle_model char(20),
+    vehicle_make char(20),
+    distance integer,
+    driver_id integer NOT NULL,
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">License Plate</th>
+            <th scope="col">Vehicle Color</th>
+            <th scope="col">Vehicle Model</th>
+            <th scope="col">Vehicle Make</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Driver ID</th>
+          </tr>
+        </thead>
+        {% for user in tableData %}
+        <tbody>
+          <td>{{ user[0] }} </td>
+          <td>{{ user[1] }} </td>
+          <td>{{ user[2] }} </td>
+          <td>{{ user[3] }} </td>
+          <td>{{ user[4] }} </td>
+          <td>{{ user[5] }} </td>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+{% endblock %}

@@ -1,12 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Address page</h1>
-</body>
-</html>
+   
+
+    <div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Address ID</th>
+            <th scope="col">Unit Number</th>
+            <th scope="col">Street Number</th>
+            <th scope="col">Street Name</th>
+            <th scope="col">Postal Code</th>
+            <th scope="col">Neighbourhood</th>
+        </tr>
+        </thead>
+        {% for user in tableData %}
+        <tbody>
+        <td>{{ user[0] }} </td>
+        <td>{{ user[1] }} </td>
+        <td>{{ user[2] }} </td>
+        <td>{{ user[3] }} </td>
+        <td>{{ user[4] }} </td>
+        <td>{{ user[5] }} </td>
+        </tbody>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}
