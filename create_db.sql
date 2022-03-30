@@ -1,3 +1,18 @@
+DROP TABLE IF EXISTS Address;
+DROP TABLE IF EXISTS City;
+DROP TABLE IF EXISTS Customer;
+DROP TABLE IF EXISTS DeliveryReceivesMakes;
+DROP TABLE IF EXISTS DependentHas;
+DROP TABLE IF EXISTS Discounts;
+DROP TABLE IF EXISTS Driver;
+DROP TABLE IF EXISTS OrderTakesHas;
+DROP TABLE IF EXISTS PaymentMethod;
+DROP TABLE IF EXISTS Pays;
+DROP TABLE IF EXISTS Promotion;
+DROP TABLE IF EXISTS Requires;
+DROP TABLE IF EXISTS Restaurant;
+DROP TABLE IF EXISTS VehicleDrives;
+
 CREATE TABLE Driver (
 	driver_id integer,
 	first_name char(50),
