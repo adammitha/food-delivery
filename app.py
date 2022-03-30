@@ -1,3 +1,4 @@
+from distutils.log import debug
 from http.client import HTTPException
 import json
 from flask import Flask, render_template, request
@@ -26,7 +27,7 @@ def select_table(table: str, attributes: str) -> str:
     out = []
     for row in cur.execute(f"SELECT {attributes} FROM {table}"):
         out.append(row)
-    return out;
+    return out
 
 def delete_table_row(table: str, condition_map: Dict[str, Union[str, int]]):
     """
@@ -52,6 +53,21 @@ def raw_select_query(query: str):
         out.append(row)
     return json.dumps(out)
 
+def update_table(table: str, condition_map: Dict[str, Union[str, int]], value_map: Dict[str, Union[str, int]]):
+    """
+    Updates rows matching condition_map with new values in value_map
+    """
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    values_bind_string = ", ".join([f"{key}=?" for key in value_map.keys()])
+    conditions = " AND ".join([f"{key}=?" for key in condition_map.keys()])
+    query = f"UPDATE {table} SET {values_bind_string} WHERE {conditions}"
+    print(query)
+    bind_tuple = tuple(value_map.values()) + tuple(condition_map.values())
+    cur.execute(query, bind_tuple)
+    db_conn.commit()
+    return
+
 
 @app.route("/")
 def hello_world():
@@ -63,44 +79,44 @@ def customeradd():
 
 @app.route('/customers')
 def customer():
-    db_conn = sqlite3.connect("food_delivery.db");
-    cur = db_conn.cursor();
-    tableData =  table("Customer");
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    tableData =  table("Customer")
     db_conn.close()  
     print(tableData)
-    return render_template('customer.html', tableData = tableData);
+    return render_template('customer.html', tableData = tableData)
 
 @app.route('/address')
 def address():
-    db_conn = sqlite3.connect("food_delivery.db");
-    cur = db_conn.cursor();
-    tableData =  table("Address");
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    tableData =  table("Address")
     db_conn.close() 
     return render_template('address.html', tableData = tableData)
 
 @app.route('/drivers')
 def drivers():
-    db_conn = sqlite3.connect("food_delivery.db");
-    cur = db_conn.cursor();
-    tableData =  table("Driver");
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    tableData =  table("Driver")
     db_conn.close() 
     return render_template('drivers.html', tableData = tableData)
 
 @app.route('/restaurants')
 def restaurants():
-    db_conn = sqlite3.connect("food_delivery.db");
-    cur = db_conn.cursor();
-    tableData =  table("Restaurant");
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    tableData =  table("Restaurant")
     db_conn.close() 
     return render_template('restaurants.html', tableData = tableData)
 
 @app.route('/vehicles')
 def vehicles():
-    db_conn = sqlite3.connect("food_delivery.db");
-    cur = db_conn.cursor();
-    tableData =  table("VehicleDrives");
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    tableData =  table("VehicleDrives")
     db_conn.close() 
-    return render_template('vehicles.html', tableData = tableData);
+    return render_template('vehicles.html', tableData = tableData)
 
 # Example url: http://127.0.0.1:5000/tables/Driver?attributes=first_name,last_name
 # If you want all the attributes in a table, don't include the attributes query parameter:
