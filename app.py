@@ -40,6 +40,8 @@ def delete_table_row(table: str, condition_map: Dict[str, Union[str, int]]):
     db_conn.commit()
     return 
 
+    
+
 def raw_select_query(query: str):
     """
     Execute raw select sql query against db
@@ -142,3 +144,15 @@ def delete(tablename: str):
 
 if __name__ == '__name__':
     app.run(port=5000,debug=True)
+
+
+
+#app.py
+@app.route('/tables/customer', methods=['POST'])
+def delete_customer():
+    db_conn = sqlite3.connect("food_delivery.db")
+    cur = db_conn.cursor()
+    cur.execute('DELETE FROM customer WHERE last_name = ?', [request.form['last__name_to_delete']])
+    db_conn.commit()
+    tableData =  table("Customer");
+    return render_template('customer.html', tableData = tableData)
