@@ -10,6 +10,7 @@
         <th scope="col">Address ID</th>
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
+        
       </tr>
     </thead>
     {% for user in tableData %}
@@ -35,23 +36,15 @@
 </div>
 
 <div>
-  <Button onclick="myFunction()"> Insert </Button>
-    <Button onclick="myFunction()"> Delete </Button>
-    <Button onclick="myFunction()"> Update </Button>
-    <Button onclick="myFunction()"> Projection </Button>
-    <Button onclick="myFunction()"> Select </Button>
-    <Button onclick="myFunction()"> Join</Button>
-    <Button onclick="myFunction()"> Divide</Button>
+
+    <a href= "{{url_for('customer_restaurants') }}">
+      <span class="badge badge-primary"> Join  </span>
+    </a>
 
 
-
-
-<input type="text" placeholder="Select" id="myInput">
-    <button type="button" onclick="getInputValue();">Select</button>
-</form>
-
-
-
+    <a href= "{{url_for('customer_restaurants_orders') }}">
+      <span class="badge badge-primary"> Divison  </span>
+    </a>
     
     <script>
       

@@ -24,5 +24,10 @@
       </tbody>
       {% endfor %}
     </table>
-    <button type="button" class="btn btn-outline-success">Calculate total distance Driven</button>
+    <form method = 'POST'>
+      <button type="submit" class="btn btn-primary">Calculate total distance Driven</button>
+    </form>
+    {% if totalDistanceDriven %}
+    <p>Total Distance Driven: {{ totalDistanceDriven }}km</p>
+    {% endif %}
 {% endblock %}

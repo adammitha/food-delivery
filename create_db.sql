@@ -126,7 +126,7 @@ CREATE TABLE Customer (
 	customer_address char(200),
 	first_name char(50),
     last_name char(50),
-	PRIMARY KEY (customer_id),
+	PRIMARY KEY (customer_id)
 );
 
 INSERT INTO Customer(customer_id, customer_address, first_name, last_name) 
@@ -211,6 +211,15 @@ INSERT INTO OrderTakesHas(order_id, total, tip, order_timestamp, restaurant_id, 
     VALUES(2004, 120.00, 40.00, '2022-02-28 2:35:59', 4, 44);
 INSERT INTO OrderTakesHas(order_id, total, tip, order_timestamp, restaurant_id, customer_id)
     VALUES(2005, 120.00, 40.00, '2022-03-01 10:06:09', 5, 55);
+INSERT INTO OrderTakesHas(order_id, total, tip, order_timestamp, restaurant_id, customer_id)
+    VALUES(2006, 18.00, 3.00, '2022-03-10 11:06:09', 4, 55);
+INSERT INTO OrderTakesHas(order_id, total, tip, order_timestamp, restaurant_id, customer_id)
+    VALUES(2007, 23.00, 4.00, '2022-03-11 1:46:10', 3, 55);
+INSERT INTO OrderTakesHas(order_id, total, tip, order_timestamp, restaurant_id, customer_id)
+    VALUES(2008, 16.00, 2.00, '2022-03-12 12:02:49', 2, 55);
+INSERT INTO OrderTakesHas(order_id, total, tip, order_timestamp, restaurant_id, customer_id)
+    VALUES(2009, 28.00, 8.00, '2022-03-20 9:42:23', 1, 55);
+
 
 
 CREATE TABLE Requires(

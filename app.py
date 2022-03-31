@@ -53,7 +53,7 @@ def raw_select_query(query: str):
     out = []
     for row in cur.execute(query):
         out.append(row)
-    return json.dumps(out)
+    return out
 
 def update_table(table: str, condition_map: Dict[str, Union[str, int]], value_map: Dict[str, Union[str, int]]):
     """
@@ -81,9 +81,11 @@ def customer():
     db_conn = sqlite3.connect("food_delivery.db")
     cur = db_conn.cursor()
     tableData =  table("Customer")
+    averageOrderTotalQuery = "SELECT O.customer_id, AVG(O.total) FROM OrderTakesHas O WHERE O.customer_id IN (SELECT customer_id FROM Customer) GROUP BY O.customer_id"
+    avgOrderTotal = raw_select_query(averageOrderTotalQuery)
     db_conn.close()  
     print(tableData)
-    return render_template('customer.html', tableData = tableData)
+    return render_template('customer.html', tableData = tableData, avgOrderTotal = avgOrderTotal)
 
 @app.route('/address')
 def address():
@@ -109,13 +111,13 @@ def restaurants():
     db_conn.close() 
     return render_template('restaurants.html', tableData = tableData)
 
-@app.route('/vehicles')
+@app.route('/vehicles', methods=["GET", "POST"])
 def vehicles():
-    db_conn = sqlite3.connect("food_delivery.db")
-    cur = db_conn.cursor()
     tableData =  table("VehicleDrives")
-    db_conn.close() 
-    return render_template('vehicles.html', tableData = tableData)
+    totalDistanceDriven = None
+    if request.method == "POST":
+        totalDistanceDriven = raw_select_query("SELECT SUM(Distance) FROM VehicleDrives")[0][0]
+    return render_template('vehicles.html', tableData = tableData, totalDistanceDriven = totalDistanceDriven)
 
 @app.route('/addcustomer')
 def customeradd():
@@ -211,6 +213,17 @@ def get_customer(customer_id):
 def customer_helper(customer_id):
     customer = get_customer(customer_id)
     return render_template('customerProfile.html', customer=customer)
+
+@app.route('/join')
+def customer_restaurants():
+    tableData = raw_select_query("SELECT * FROM Customer C, OrderTakesHas O WHERE O.customer_id = C.customer_id")
+    return render_template('customerOrder.html', tableData = tableData)
+
+
+@app.route('/division')
+def customer_restaurants_orders():
+    tableData = raw_select_query("SELECT * FROM Customer c WHERE NOT EXISTS (SELECT r.restaurant_id FROM  Restaurant r EXCEPT SELECT DISTINCT o.restaurant_id FROM OrderTakesHas o WHERE o.customer_id = c.customer_id)")
+    return render_template('customerRestaurant.html', tableData = tableData)
 
 @app.route('/<int:customer_id>/edit', methods=('GET', 'POST'))
 def edit(customer_id):

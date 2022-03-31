@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Customer has ordered from:</h2>
+<h2>Customers who have ordered from every restaurant:</h2>
 
     <div>
         <table class="table">
@@ -12,11 +12,6 @@
                 <th scope="col">Address ID</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <th scope="col">Customer ID</th>
-                <th scope="col">Address ID</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Last Name</th>
               </tr>
             </thead>
             {% for user in tableData %}
@@ -25,11 +20,6 @@
               <td>{{ user[1] }} </td>
               <td>{{ user[2] }} </td>
               <td>{{ user[3] }} </td>
-              <td>{{ user[4] }} </td>
-              <td>{{ user[5] }} </td>
-              <td>{{ user[6] }} </td>
-              <td>{{ user[7] }} </td>
-              <td>{{ user[8] }} </td>
             </tbody>
             {% endfor %}
           </table>
