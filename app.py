@@ -82,7 +82,7 @@ def customer():
     cur = db_conn.cursor()
     tableData =  table("Customer")
     averageOrderTotalQuery = "SELECT O.customer_id, AVG(O.total) FROM OrderTakesHas O WHERE O.customer_id IN (SELECT customer_id FROM Customer) GROUP BY O.customer_id"
-    avgOrderTotal = raw_select_query(averageOrderTotalQuery)
+    avgOrderTotal = {id: avg for (id, avg) in raw_select_query(averageOrderTotalQuery)}
     db_conn.close()  
     print(tableData)
     return render_template('customer.html', tableData = tableData, avgOrderTotal = avgOrderTotal)
