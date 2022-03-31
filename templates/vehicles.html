@@ -3,26 +3,26 @@
 {% block content %}
     <h1>Vehicle page</h1>
     <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">License Plate</th>
-            <th scope="col">Vehicle Color</th>
-            <th scope="col">Vehicle Model</th>
-            <th scope="col">Vehicle Make</th>
-            <th scope="col">Distance</th>
-            <th scope="col">Driver ID</th>
-          </tr>
-        </thead>
-        {% for user in tableData %}
-        <tbody>
-          <td>{{ user[0] }} </td>
-          <td>{{ user[1] }} </td>
-          <td>{{ user[2] }} </td>
-          <td>{{ user[3] }} </td>
-          <td>{{ user[4] }} </td>
-          <td>{{ user[5] }} </td>
-        </tbody>
-        {% endfor %}
-      </table>
-    </div>
+      <thead>
+        <tr>
+          <th scope="col">License Plate</th>
+          <th scope="col">Vehicle Color</th>
+          <th scope="col">Vehicle Model</th>
+          <th scope="col">Vehicle Make</th>
+          <th scope="col">Distance</th>
+          <th scope="col">Driver ID</th>
+        </tr>
+      </thead>
+      {% for user in tableData %}
+      <tbody>
+        <td>{{ user[0] }} </td>
+        <td>{{ user[1] }} </td>
+        <td>{{ user[2] }} </td>
+        <td>{{ user[3] }} </td>
+        <td>{{ user[4] }} </td>
+        <td>{{ user[5] }} </td>
+      </tbody>
+      {% endfor %}
+    </table>
+    <button type="button" class="btn btn-outline-success">Calculate total distance Driven</button>
 {% endblock %}
