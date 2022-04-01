@@ -187,10 +187,10 @@ def create():
         customer_id = request.form['customer_id']
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        address = request.form['addressID']
+        customer_address = request.form['customer_address']
         db_conn = sqlite3.connect("food_delivery.db")
-        db_conn.execute('INSERT INTO customer (customer_id, first_name, last_name, addressID) VALUES (?, ?, ?, ?)',
-                        (customer_id, first_name, last_name, address))
+        db_conn.execute('INSERT INTO customer (customer_id, customer_address, first_name, last_name) VALUES (?, ?, ?, ?)',
+                        (customer_id, customer_address, first_name, last_name))
         db_conn.commit()
         tableData =  table("Customer");
         return render_template('customer.html', tableData= tableData)
