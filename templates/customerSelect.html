@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<title>Customer</title>
+<title></title>
 <div>
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">Customer ID</th>
+        <th scope="col">Restaurant ID</th>
+        <th scope="col">Restaurant Name</th>
+        <th scope="col">Cuisine</th>
         <th scope="col">Address ID</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
+        <th scope="col">Business License Number</th>
       </tr>
     </thead>
     {% for user in tableData %}
     <tbody>
       <td>{{ user[0] }} </td>
+      <td>{{ user[1] }} </td>
+      <td>{{ user[2] }} </td>
+      <td>{{ user[3] }} </td>
+      <td>{{ user[4] }} </td>
     <td>
     </tbody>
     {% endfor %}

@@ -250,4 +250,9 @@ def edit(customer_id):
 
 
 
+@app.route('/selection')
+def restaurants_orders_select():
+    tableData = raw_select_query("SELECT * FROM Restaurant R WHERE R.cuisine = 'French'")
+    return render_template('customerSelect.html', tableData = tableData)
+
     
