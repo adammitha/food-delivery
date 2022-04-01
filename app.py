@@ -255,4 +255,7 @@ def restaurants_orders_select():
     tableData = raw_select_query("SELECT * FROM Restaurant R WHERE R.cuisine = 'French'")
     return render_template('customerSelect.html', tableData = tableData)
 
-    
+@app.route('/projection')
+def customer_names():
+    tableData = raw_select_query("SELECT c.first_name, c.last_name FROM Customer c")
+    return render_template('customerNames.html', tableData = tableData)
