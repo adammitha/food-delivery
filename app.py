@@ -70,6 +70,11 @@ def update_table(table: str, condition_map: Dict[str, Union[str, int]], value_ma
     db_conn.commit()
     return
 
+def average_order_total() -> Dict[int, float]:
+    averageOrderTotalQuery = "SELECT O.customer_id, AVG(O.total) FROM OrderTakesHas O WHERE O.customer_id IN (SELECT customer_id FROM Customer) GROUP BY O.customer_id"
+    avgOrderTotal = {id: avg for (id, avg) in raw_select_query(averageOrderTotalQuery)}
+    return avgOrderTotal
+
 
 @app.route("/")
 def hello_world():
@@ -81,11 +86,9 @@ def customer():
     db_conn = sqlite3.connect("food_delivery.db")
     cur = db_conn.cursor()
     tableData =  table("Customer")
-    averageOrderTotalQuery = "SELECT O.customer_id, AVG(O.total) FROM OrderTakesHas O WHERE O.customer_id IN (SELECT customer_id FROM Customer) GROUP BY O.customer_id"
-    avgOrderTotal = {id: avg for (id, avg) in raw_select_query(averageOrderTotalQuery)}
     db_conn.close()  
     print(tableData)
-    return render_template('customer.html', tableData = tableData, avgOrderTotal = avgOrderTotal)
+    return render_template('customer.html', tableData = tableData, avgOrderTotal = average_order_total())
 
 @app.route('/address')
 def address():
@@ -178,8 +181,8 @@ def delete_customer():
     cur = db_conn.cursor()
     cur.execute('DELETE FROM customer WHERE last_name = ?', [request.form['last__name_to_delete']])
     db_conn.commit()
-    tableData =  table("Customer");
-    return render_template('customer.html', tableData = tableData)
+    tableData =  table("Customer")
+    return render_template('customer.html', tableData = tableData, avgOrderTotal = average_order_total())
 
 @app.route('/addcustomer', methods=['GET', 'POST'])
 def create():
@@ -192,10 +195,10 @@ def create():
         db_conn.execute('INSERT INTO customer (customer_id, customer_address, first_name, last_name) VALUES (?, ?, ?, ?)',
                         (customer_id, customer_address, first_name, last_name))
         db_conn.commit()
-        tableData =  table("Customer");
-        return render_template('customer.html', tableData= tableData)
+        tableData =  table("Customer")
+        return render_template('customer.html', tableData= tableData, avgOrderTotal = average_order_total())
     else:
-        return render_template('customer.html', tableData= tableData)
+        return render_template('customer.html', tableData= tableData, avgOrderTotal = average_order_total())
 
 
 def get_customer(customer_id):
@@ -240,7 +243,7 @@ def edit(customer_id):
         db_conn.commit()
         db_conn.close()
         tableData =  table("Customer");
-        return render_template('customer.html', tableData= tableData, customer = customer)
+        return render_template('customer.html', tableData= tableData, customer = customer, avgOrderTota = average_order_total())
     else:
         return render_template('editcustomer.html', customer = customer)
 
