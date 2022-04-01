@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Address ID</th>
-            <th scope="col">First Name</th>
-        </tr>
-        </thead>
-    <tbody>
-        <td>{{ customer[1] }} </td>
-        <td>{{ customer[2] }} </td>
-    <td>
-    </tbody>
 
-    </table>
+<div class="p-5 d-flex justify-content-center">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ customer[2] }} {{ customer[3] }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">New Customer</h6>
+      <p class="card-text"> {{ customer[1] }} </p>
+    </div>
+  </div>
+</div>
     {% endblock %}

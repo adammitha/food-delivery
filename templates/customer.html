@@ -17,7 +17,7 @@
     {% for user in tableData %}
     <tbody>
       <td><a href= "{{url_for('customer_helper', customer_id = user[0]) }}">
-        <span class="badge badge-primary"> {{ user[0] }} </span>
+        <span class="btn btn-outline-primary"> {{ user[0] }} </span>
       </a></td>
       <td>{{ user[1] }} </td>
       <td>{{ user[2] }} </td>
@@ -25,12 +25,12 @@
       <td>0.00</td>
       <td><form action="{{ url_for('delete_customer') }}" method=post>
         <input type=hidden value="{{ user[3] }}"name=last__name_to_delete />
-  <input type=submit  value="Delete" />
+  <input type=submit class="btn btn-outline-danger" value="Delete" />
     </form>
     <td>
 
       <td><a href= "{{url_for('edit', customer_id = user[0]) }}">
-        <span class="badge badge-primary"> Edit  </span>
+        <span class="btn btn-outline-warning"> Edit  </span>
       </a></td>
     </tbody>
     {% endfor %}
@@ -40,12 +40,12 @@
 <div>
 
     <a href= "{{url_for('customer_restaurants') }}">
-      <span class="badge badge-primary"> Join  </span>
+      <span class="btn btn-secondary btn-sm"> Get Order Info </span>
     </a>
 
 
     <a href= "{{url_for('customer_restaurants_orders') }}">
-      <span class="badge badge-primary"> Divison  </span>
+      <span class="btn btn-secondary btn-sm"> Customers Who Have Ordered From All Restaurants </span>
     </a>
     
     <script>
