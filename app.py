@@ -257,5 +257,11 @@ def restaurants_orders_select():
 
 @app.route('/projection')
 def customer_names():
+    if request.method == 'POST':
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        customer_address = request.form.get("customer_address")
+        tableData = raw_select_query("SELECT ")
+
     tableData = raw_select_query("SELECT c.first_name, c.last_name FROM Customer c")
     return render_template('customerNames.html', tableData = tableData)
