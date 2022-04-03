@@ -58,18 +58,18 @@
     </a>
 
     <div>
-      <form method="POST">
+      <form action="/projection" method="POST">
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="first_name" value = "{{ request.form['first_name'] }}">
-          <label class="form-check-label" for="exampleCheck1">First Name</label>
+          <input type="checkbox" class="form-check-input" name="first_name" id="first_name" value = "{{ request.form['first_name'] }}">
+          <label class="form-check-label" for="first_name">First Name</label>
         </div>
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="last_name" value = "{{ request.form['last_name'] }}">
-          <label class="form-check-label" for="exampleCheck1">Last Name</label>
+          <input type="checkbox" class="form-check-input" name="last_name" id="last_name" value = "{{ request.form['last_name'] }}">
+          <label class="form-check-label" for="last_name">Last Name</label>
         </div>
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="customer_address" value = "{{ request.form['customer_address] }}">
-          <label class="form-check-label" for="exampleCheck1">Address Name</label>
+          <input type="checkbox" class="form-check-input" name="customer_address" id="customer_address" value = "{{ request.form['customer_address'] }}">
+          <label class="form-check-label" for="customer_address">Customer Address</label>
         </div>
         <button type="submit" class="btn btn-secondary btn-sm">Projection</button>
       </form>

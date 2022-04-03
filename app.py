@@ -255,13 +255,24 @@ def restaurants_orders_select():
     tableData = raw_select_query("SELECT * FROM Restaurant R WHERE R.cuisine = 'French'")
     return render_template('customerSelect.html', tableData = tableData)
 
-@app.route('/projection')
+@app.route('/projection', methods=['GET', 'POST'])
 def customer_names():
     if request.method == 'POST':
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
-        customer_address = request.form.get("customer_address")
-        tableData = raw_select_query("SELECT ")
-
-    tableData = raw_select_query("SELECT c.first_name, c.last_name FROM Customer c")
-    return render_template('customerNames.html', tableData = tableData)
+        first_name = request.form.get('first_name') is not None
+        last_name = request.form.get('last_name') is not None
+        customer_address = request.form.get("customer_address") is not None
+        columns = []
+        if first_name:
+            columns.append("first_name")
+        if last_name:
+            columns.append("last_name")
+        if customer_address:
+            columns.append("customer_address")
+        if len(columns) == 0:
+            columns = ['first_name', 'last_name', 'customer_address']
+    else:
+        columns = ['first_name', 'last_name']
+    columns_string = ", ".join(columns) if len(columns) > 0 else "*"
+    headers = [name.title().replace("_", " ") for name in columns]
+    tableData = raw_select_query(f"SELECT {columns_string} FROM Customer")
+    return render_template('customerNames.html', headers = headers, tableData = tableData)
